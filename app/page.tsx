@@ -1,54 +1,78 @@
-import NextLink from "next/link";
-import { Link } from "@nextui-org/link";
-import { Snippet } from "@nextui-org/snippet";
-import { Code } from "@nextui-org/code"
-import { button as buttonStyles } from "@nextui-org/theme";
-import { siteConfig } from "@/config/site";
-import { title, subtitle } from "@/components/primitives";
-import { GithubIcon } from "@/components/icons";
+'use client'
+import React from "react";
+import {Card, CardHeader, CardBody, CardFooter, Avatar, Button, useDisclosure} from "@nextui-org/react";
+import Image from "next/image";
+import ModalDar from "@components/global/modal/modal";
+import toast from 'react-hot-toast';
 
-export default function Home() {
+const Home = () => {
+
+	const [isFollowed, setIsFollowed] = React.useState(false);
+  const {isOpen, onOpen, onOpenChange} = useDisclosure();
+
 	return (
 		<section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
-			<div className="inline-block max-w-lg text-center justify-center">
-				<h1 className={title()}>Make&nbsp;</h1>
-				<h1 className={title({ color: "violet" })}>beautiful&nbsp;</h1>
-				<br />
-				<h1 className={title()}>
-					websites regardless of your design experience.
-				</h1>
-				<h2 className={subtitle({ class: "mt-4" })}>
-					Beautiful, fast and modern React UI library.
-				</h2>
-			</div>
-
-			<div className="flex gap-3">
-				<Link
-					isExternal
-					as={NextLink}
-					href={siteConfig.links.docs}
-					className={buttonStyles({ color: "primary", radius: "full", variant: "shadow" })}
-				>
-					Documentation
-				</Link>
-				<Link
-					isExternal
-					as={NextLink}
-					className={buttonStyles({ variant: "bordered", radius: "full" })}
-					href={siteConfig.links.github}
-				>
-					<GithubIcon size={20} />
-					GitHub
-				</Link>
-			</div>
-
-			<div className="mt-8">
-				<Snippet hideSymbol hideCopyButton variant="flat">
-					<span>
-						Get started by editing <Code color="primary">app/page.tsx</Code>
+			<Button onPress={onOpen} className="max-w-fit">Crear Post</Button>
+			<Card className="max-w-[340px]">
+				<CardHeader className="justify-between">
+					<div className="flex gap-5">
+						<Avatar isBordered radius="full" size="md" src="/images/avatar-1.png" />
+						<div className="flex flex-col gap-1 items-start justify-center">
+							<h4 className="text-small font-semibold leading-none text-default-600">Zoey Lang</h4>
+							<h5 className="text-small tracking-tight text-default-400">@zoeylang</h5>
+						</div>
+					</div>
+					<Button
+						className={isFollowed ? "bg-transparent text-foreground border-default-200" : ""}
+						color="primary"
+						radius="full"
+						size="sm"
+						variant={isFollowed ? "bordered" : "solid"}
+						onPress={() =>{
+							 setIsFollowed(!isFollowed)
+							 toast('Here is your toast.')
+							}}
+					>
+						{isFollowed ? "Dejar de seguir" : "Seguir"}
+					</Button>
+				</CardHeader>
+				<CardBody className="px-3 py-0 text-small text-default-400">
+					<p>
+						Frontend developer and UI/UX enthusiast. Join me on this coding adventure!
+					</p>
+					<span className="pt-2">
+						#FrontendWithZoey 
+						<span className="py-2" aria-label="computer" role="img">
+							💻
+						</span>
 					</span>
-				</Snippet>
-			</div>
+					<div className="overflow-visible py-2">
+						<Image
+							alt="Card background"
+							className="object-cover rounded-xl"
+							src="/images/hero-card-complete.jpeg"
+							width={300}
+							height={200}
+						/>
+					</div>
+				</CardBody>
+				<CardFooter className="gap-3">
+					<div className="flex gap-1">
+						<p className="font-semibold text-default-400 text-small">4</p>
+						<p className=" text-default-400 text-small">Following</p>
+					</div>
+					<div className="flex gap-1">
+						<p className="font-semibold text-default-400 text-small">97.1K</p>
+						<p className="text-default-400 text-small">Followers</p>
+					</div>
+				</CardFooter>
+			</Card>
+			<ModalDar
+				isOpen={isOpen}
+				onOpenChange={onOpenChange}
+			/>
 		</section>
 	);
 }
+
+export default Home

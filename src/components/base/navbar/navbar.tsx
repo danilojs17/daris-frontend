@@ -14,22 +14,21 @@ import { Input } from "@nextui-org/input";
 
 import { link as linkStyles } from "@nextui-org/theme";
 
-import { siteConfig } from "@/config/site";
+import { siteConfig } from "@config/site";
 import NextLink from "next/link";
 import clsx from "clsx";
 
-import { ThemeSwitch } from "@/components/theme-switch";
 import {
 	TwitterIcon,
 	GithubIcon,
 	DiscordIcon,
 	HeartFilledIcon,
 	SearchIcon,
-} from "@/components/icons";
+	Logo
+} from "@components/global/icons/icons";
+import {ThemeSwitch} from '@components/base/theme-switch/theme-switch'
 
-import { Logo } from "@/components/icons";
-
-export const Navbar = () => {
+const Navbar = () => {
 	const searchInput = (
 		<Input
 			aria-label="Search"
@@ -77,7 +76,6 @@ export const Navbar = () => {
 					))}
 				</ul>
 			</NavbarContent>
-
 			<NavbarContent
 				className="hidden sm:flex basis-1/5 sm:basis-full"
 				justify="end"
@@ -122,7 +120,7 @@ export const Navbar = () => {
 				<div className="mx-4 mt-2 flex flex-col gap-2">
 					{siteConfig.navMenuItems.map((item, index) => (
 						<NavbarMenuItem key={`${item}-${index}`}>
-							<Link
+							<NextLink
 								color={
 									index === 2
 										? "primary"
@@ -130,11 +128,11 @@ export const Navbar = () => {
 										? "danger"
 										: "foreground"
 								}
-								href="#"
+								href={`${item.href}`}
 								size="lg"
 							>
 								{item.label}
-							</Link>
+							</NextLink>
 						</NavbarMenuItem>
 					))}
 				</div>
@@ -142,3 +140,5 @@ export const Navbar = () => {
 		</NextUINavbar>
 	);
 };
+
+export default Navbar

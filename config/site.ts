@@ -5,8 +5,12 @@ export const siteConfig = {
 	description: "Make beautiful websites regardless of your design experience.",
 	navItems: [
 		{
-			label: "Home",
+			label: "Inicio",
 			href: "/",
+		},
+		{
+			label: "Unirme",
+			href: "/join",
 		},
     {
       label: "Docs",
@@ -27,16 +31,16 @@ export const siteConfig = {
 	],
 	navMenuItems: [
 		{
-			label: "Profile",
+			label: "Pérfil",
 			href: "/profile",
 		},
 		{
-			label: "Dashboard",
-			href: "/dashboard",
+			label: "Inicio",
+			href: "/",
 		},
 		{
-			label: "Projects",
-			href: "/projects",
+			label: "Unirme",
+			href: "/join",
 		},
 		{
 			label: "Team",
@@ -47,12 +51,8 @@ export const siteConfig = {
 			href: "/calendar",
 		},
 		{
-			label: "Settings",
+			label: "Configuración",
 			href: "/settings",
-		},
-		{
-			label: "Help & Feedback",
-			href: "/help-feedback",
 		},
 		{
 			label: "Logout",
