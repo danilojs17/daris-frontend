@@ -1,10 +1,10 @@
+import React, { FC } from 'react';
 import { ITabSignup } from '@interface/components/tab-signup/TabSignup';
 import { ICreateUser } from '@interface/core/model/user/User';
 import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
 import { Link } from '@nextui-org/link';
 import { Tab } from '@nextui-org/tabs';
-import React, { FC } from 'react';
 import { useForm } from 'react-hook-form'
 
 const TabSignup: FC<ITabSignup> = (props) => {

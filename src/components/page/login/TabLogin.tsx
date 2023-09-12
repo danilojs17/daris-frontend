@@ -1,10 +1,10 @@
+import React, { FC } from 'react';
 import { ITabLogin } from '@interface/components/tab-login/TabLogin';
 import { IAuthPayload } from '@interface/context/auth/Auth';
 import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
 import { Link } from '@nextui-org/link';
 import { Tab } from '@nextui-org/tabs';
-import React, { FC } from 'react';
 import { useForm } from 'react-hook-form'
 
 const TabLogin: FC<ITabLogin> = (props) => {
