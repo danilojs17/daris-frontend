@@ -1,11 +1,10 @@
-import { IAuthContext, IAuthPayload, IChangePassword, IRecoverPassword } from '@interface/core/auth/Auth'
+import { IAuthContext, IAuthPayload, IChangePassword, IRecoverPassword } from '@interface/context/auth/Auth'
 import { Context, createContext } from 'react'
 
 export const initialState: IAuthContext = {
   logged: false,
   loading: true,
   user: {
-    permissions: [],
     data: {
       userEmail: '',
       userFullName: '',

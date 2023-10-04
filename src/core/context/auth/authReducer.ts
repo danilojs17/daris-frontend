@@ -1,4 +1,4 @@
-import { IAction, IAuthContext } from '@interface/core/auth/Auth'
+import { IAction, IAuthContext } from '@interface/context/auth/Auth'
 
 const authReducer = (state: IAuthContext, action: IAction): IAuthContext => {
   const { type, payload } = action
@@ -9,15 +9,12 @@ const authReducer = (state: IAuthContext, action: IAction): IAuthContext => {
       loading: payload as boolean
     }
   } else if (type === 'LOGIN') {
-    const { permissions, ...data } = payload
-
     return {
       ...state,
       logged: true,
       loading: false,
       user: {
-        permissions,
-        data
+        data: payload
       }
 
     }

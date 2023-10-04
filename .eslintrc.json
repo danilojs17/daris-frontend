@@ -1,39 +1,39 @@
 {
-  "extends": [
-    "standard",
-    "next/core-web-vitals"
-  ],
-  "settings": {
-    "react": {
-      "version": "18"
-    }
-  },
-  "overrides": [],
-  "parserOptions": {
-    "ecmaFeatures": {
-      "tsx": true
-    },
-    "ecmaVersion": "latest",
-    "sourceType": "module"
-  },
-  "rules": {
-    "global-require": "off",
-    "newline-per-chained-call": "off",
-    "import/no-dynamic-require": "off",
-    "quotes": [
-      "error",
-      "single",
-      {
-        "allowTemplateLiterals": true
-      }
+    "extends": [
+        "standard",
+        "next/core-web-vitals"
     ],
-    "class-methods-use-this": "off",
-    "indent": [
-      "error",
-      2
-    ]
-  },
-  "globals": {
-    "JSX": true
-  }
+    "settings": {
+        "react": {
+            "version": "18"
+        }
+    },
+    "overrides": [],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "tsx": true
+        },
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "rules": {
+        "global-require": "off",
+        "newline-per-chained-call": "off",
+        "import/no-dynamic-require": "off",
+        "quotes": [
+            "error",
+            "single",
+            {
+                "allowTemplateLiterals": true
+            }
+        ],
+        "class-methods-use-this": "off",
+        "indent": [
+            "error",
+            2
+        ]
+    },
+    "globals": {
+        "JSX": true
+    }
 }

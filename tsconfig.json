@@ -18,20 +18,18 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
     "paths": {
       "@components/*": [
-        "./src/components/*"
+        "./src/shared/components/*"
       ],
       "@library/*": [
         "./src/shared/library/*"
       ],
       "@tools/*": [
         "./src/shared/tools/*"
+      ],
+      "@const/*": [
+        "./src/shared/const/*"
       ],
       "@constant/*": [
         "./src/data/constant/*"
@@ -49,21 +47,17 @@
         "./src/core/model/*"
       ],
       "@styles/*": [
-        "./styles/*"
+        "./src/styles/*"
       ],
       "@img/*": [
         "./public/images/*"
-      ],
-      "@config/*": [
-        "./config/*"
-      ],
-    }
+      ]
+    },
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
+    "**/*.tsx"
   ],
   "exclude": [
     "node_modules"

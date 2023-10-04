@@ -2,12 +2,10 @@ import { ReactNode } from 'react'
 import { IDataUser } from './User'
 
 export interface IUserAuthenticated {
-  permissions: Array<string>;
   data: IDataUser;
 }
 
 export interface ITokenDecode extends IDataUser {
-  permissions: Array<string>;
 }
 
 export interface IAuthPayload {

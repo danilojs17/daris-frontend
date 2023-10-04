@@ -1,16 +1,14 @@
 import { useCallback, useEffect, useMemo, useReducer } from 'react'
-import jwtDecode from 'jwt-decode'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import { AuthContext, initialState } from './AuthContext'
-import authReducer from './authReducer'
 import Axios, { AxiosInstance } from 'axios'
+import { AuthContext, initialState } from './AuthContext'
+import jwtDecode from 'jwt-decode'
+import authReducer from './authReducer'
 import { IAxiosResponse } from '@interface/context/axios/Axios'
-import { IAuthContext, IAuthLoginResult, IAuthPayload, IAuthState, IChangePassword, IRecoverPassword, ITokenDecode } from '@interface/core/auth/Auth'
 import { deleteItem, readItem, storageItem } from '@tools/local-storage/localStorage'
-import showToast from '@components/global/toast/Toast'
 import Spinner from '@components/global/spinner/Spinner'
-import LoginComponent from '@components/page/login/LoginComponent'
+import { IAuthContext, IAuthLoginResult, IAuthPayload, IAuthState, IChangePassword, IRecoverPassword, ITokenDecode } from '@interface/context/auth/Auth'
 
 export const AuthState: NextPage<IAuthState> = (props) => {
   const [state, dispatch] = useReducer(authReducer, initialState)
@@ -26,7 +24,7 @@ export const AuthState: NextPage<IAuthState> = (props) => {
         dispatch({ type: 'LOGIN', payload: jwtDecode<ITokenDecode>(result.token) })
       }).catch((error) => {
         const response = error.response?.data?.message ? error.response?.data?.message : 'CANT CONNECT TO SERVER'
-        showToast('error', response)
+        console.log('error', response)
       })
       .finally(() => {
         dispatch({ type: 'LOADING', payload: false })
@@ -46,11 +44,11 @@ export const AuthState: NextPage<IAuthState> = (props) => {
     async (recoverData: IRecoverPassword) => {
       await axios.post<IAxiosResponse<string>>('auth/request/password', recoverData)
         .then(({ data: { result } }) => {
-          showToast('info', result)
+          console.log('info', result)
         })
         .catch((error) => {
           const response = error.response?.data?.message ? error.response?.data?.message : 'CANT CONNECT TO SERVER'
-          showToast('error', response)
+          console.log('error', response)
         })
     }, [axios]
   )
@@ -63,12 +61,12 @@ export const AuthState: NextPage<IAuthState> = (props) => {
         }
       })
         .then(({ data: { result } }) => {
-          showToast('success', result)
+          // console.log('success', result)
           router.push('//')
         })
         .catch((error) => {
           const response = error.response?.data?.message ? error.response?.data?.message : 'CANT CONNECT TO SERVER'
-          showToast('error', response)
+          console.log('error', response)
         })
     }, [axios, router]
   )
@@ -84,7 +82,7 @@ export const AuthState: NextPage<IAuthState> = (props) => {
   }
 
   const passthrough = useMemo(() => {
-    const routesPublic = ['404', '/recover-password', '/recover-password/[token]']
+    const routesPublic = ['404']
 
     if (!state.logged && routesPublic.includes(router.pathname)) return true
     if (!state.logged && !routesPublic.includes(router.pathname)) return false
@@ -130,10 +128,11 @@ export const AuthState: NextPage<IAuthState> = (props) => {
     <AuthContext.Provider value={value}>
       {<>
         { state.loading
-          ? <Spinner open={state.loading} color={'red'} />
+          ? <Spinner />
           : null
         }
-        {passthrough ? props.children : <LoginComponent />}
+        {props.children}
+        {/* {!passthrough ? props.children : <JoinPage />} */}
       </>
       }
     </AuthContext.Provider>

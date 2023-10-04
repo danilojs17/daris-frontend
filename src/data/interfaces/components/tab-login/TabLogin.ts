@@ -1,4 +1,3 @@
-export interface ITabLogin {
-  key: string;
+export interface TabLogin {
   select: (key: string) => void
 }
