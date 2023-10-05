@@ -17,6 +17,7 @@ export const AuthState: NextPage<IAuthState> = (props) => {
   const router = useRouter()
 
   const login = async (loginData: IAuthPayload) => {
+    console.log('loginData', loginData)
     dispatch({ type: 'LOGOUT', payload: { ...initialState, loading: true } })
     await axios.post<IAxiosResponse<IAuthLoginResult>>('/auth', loginData)
       .then(({ data: { result } }) => {

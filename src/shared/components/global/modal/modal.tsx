@@ -20,7 +20,7 @@ const ModalDar: FC<IModal> = (props) => {
                   label="Description"
                   labelPlacement="outside"
                   placeholder="Enter your description"
-                  className="w-4/5"
+                  className="w-full"
                 />
               </ModalBody>
               <ModalFooter>

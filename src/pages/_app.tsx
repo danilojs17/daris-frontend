@@ -1,5 +1,6 @@
 import { ReactNode } from 'react'
-import '@styles/globals.css'
+import '@styles/globals.scss'
+import 'react-toastify/dist/ReactToastify.css'
 import { NextUIProvider } from '@nextui-org/react'
 import { ThemeProvider as NextThemesProvider } from 'next-themes'
 import type { AppProps } from 'next/app'
@@ -9,6 +10,7 @@ import SocketState from '@context/socket/SocketState'
 import { GlobalState } from '@context/global-state/GlobalState'
 import DefaultLayout from '../shared/components/base/layouts/default'
 import AuthState from '@context/auth/AuthState'
+import { ToastContainer, Zoom } from 'react-toastify'
 
 export default function App ({ Component, pageProps }: AppProps) {
   const getLayout = pageProps.getLayout ?? ((page: ReactNode) => {
@@ -22,6 +24,18 @@ export default function App ({ Component, pageProps }: AppProps) {
   return (
     <NextUIProvider>
       <NextThemesProvider>
+        <ToastContainer
+          position="top-center"
+          autoClose={2000}
+          transition={Zoom}
+          hideProgressBar={false}
+          newestOnTop={false}
+          draggable={false}
+          closeOnClick
+          pauseOnHover
+          theme="dark"
+          limit={1}
+        />
         <AuthState>
           <AxiosState>
             <SocketState>

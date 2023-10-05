@@ -19,7 +19,7 @@ export interface IUpdateUser extends Partial<ICreateUser>{
 
 export type IUserStorage = {
   state: boolean;
-  users: Map<number, IUser>;
+  list: Map<number, IUser>;
   errorCounter: number;
 }
 

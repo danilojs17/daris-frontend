@@ -1,35 +1,35 @@
-import { toast } from 'react-hot-toast';
 import { useCallback, useContext, useEffect } from 'react'
 import AxiosContext from '@context/axios/AxiosContext'
 import { useStorage } from '@context/global-state/GlobalState'
 import { IAxiosResponse } from '@interface/context/axios/Axios'
 import { ERROR_COUNTER } from '@constant/variables'
 import useSpinnerModel from '@model/spinner/SpinnerModel'
-import { ICreateUser, IUpdateUser, IUser, IUserModel, IUserStorage } from '@interface/core/model/user/User';
+import { ICreateUser, IUpdateUser, IUser, IUserModel, IUserStorage } from '@interface/core/model/user/User'
+import showToast from '@components/global/toast/Toast'
 
 const useUsersModel = (): IUserModel => {
   const axios = useContext(AxiosContext)
   const initialState: IUserStorage = {
     state: false,
-    list: new Map(),
+    list: new Map<number, IUser>(),
     errorCounter: 0
   }
   const { storage, updateStorage } = useStorage<IUserStorage>('user', initialState)
   const { setSpinner } = useSpinnerModel()
 
   const createUser = useCallback(
-    async (user: ICreateUser) => {
+    async (data: ICreateUser) => {
       setSpinner(true)
-      await axios.post<IAxiosResponse<IUser>>(`/user`, user)
+      await axios.post<IAxiosResponse<IUser>>(`user`, data)
         .then(({ data: { result } }) => {
           const list = new Map<number, IUser>(storage.list.entries())
           list.set(result.userId, result)
           updateStorage({ ...storage, list, state: true })
-          toast('Registro exisotoso.')
+          showToast('success', 'Registro exisotoso.')
         })
         .catch((error) => {
           const response = error.response?.data?.message ? error.response?.data?.message : 'CANT CONNECT TO SERVER'
-          toast(response)
+          showToast('error', response)
         })
         .finally(() => {
           setTimeout(() => setSpinner(false), 2000)
@@ -52,8 +52,7 @@ const useUsersModel = (): IUserModel => {
         .catch((error) => {
           const response = error.response?.data?.message ? error.response?.data?.message : 'CANT CONNECT TO SERVER'
           updateStorage({ ...storage, errorCounter: ++storage.errorCounter })
-          if (++storage.errorCounter === ERROR_COUNTER) toast(response)
-
+          if (++storage.errorCounter === ERROR_COUNTER) showToast('error', response)
         })
         .finally(() => {
           setTimeout(() => setSpinner(false), 2000)
@@ -70,11 +69,11 @@ const useUsersModel = (): IUserModel => {
           const list = new Map<number, IUser>(storage.list.entries())
           list.set(result.userId, result)
           updateStorage({ ...storage, list, state: true })
-          toast('Usuario actualizado con exito.')
+          showToast('success', 'Usuario actualizado con exito.')
         })
         .catch((error) => {
           const response = error.response?.data?.message ? error.response?.data?.message : 'CANT CONNECT TO SERVER'
-          toast(response)
+          showToast('error', response)
         })
         .finally(() => {
           setTimeout(() => setSpinner(false), 2000)
@@ -91,11 +90,11 @@ const useUsersModel = (): IUserModel => {
           const list = new Map<number, IUser>(storage.list.entries())
           list.set(result.userId, result)
           updateStorage({ ...storage, list, state: true })
-          toast('Usuario actualizado con exito.')
+          showToast('success', 'Usuario actualizado con exito.')
         })
         .catch((error) => {
           const response = error.response?.data?.message ? error.response?.data?.message : 'CANT CONNECT TO SERVER'
-          toast(response)
+          showToast('error', response)
         })
         .finally(() => {
           setTimeout(() => setSpinner(false), 2000)
@@ -112,11 +111,11 @@ const useUsersModel = (): IUserModel => {
           const list = new Map<number, IUser>(storage.list.entries())
           list.delete(result)
           updateStorage({ ...storage, list, state: true })
-          toast('Usuario eliminado con exito.')
+          showToast('success', 'Usuario eliminado con exito.')
         })
         .catch((error) => {
           const response = error.response?.data?.message ? error.response?.data?.message : 'CANT CONNECT TO SERVER'
-          toast(response)
+          showToast('error', response)
         })
         .finally(() => {
           setTimeout(() => setSpinner(false), 2000)
